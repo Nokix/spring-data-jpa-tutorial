@@ -19,6 +19,9 @@ import lombok.NoArgsConstructor;
                 columnNames = "email")
 )
 public class Student {
+    @Embedded
+    private Guardian guardian;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
