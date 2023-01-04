@@ -50,6 +50,9 @@ public class SpringDataJpaTutorialApplication {
 			System.out.println(studentRepository.getNameById(1L));
 
 			studentRepository.getAllByName("Viktor").forEach(System.out::println);
+
+			System.out.println(studentRepository.updateEmailByName("new@mail.de", "Viktor"));
+			System.out.println(studentRepository.getAllByName("Viktor"));
 		} );
 	}
 }

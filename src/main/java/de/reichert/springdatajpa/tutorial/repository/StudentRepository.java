@@ -2,8 +2,10 @@ package de.reichert.springdatajpa.tutorial.repository;
 
 import de.reichert.springdatajpa.tutorial.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +28,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // Native
     @Query(value = "SELECT * FROM student s WHERE s.first_name = :name", nativeQuery = true)
     List<Student> getAllByName(@Param("name") String name);
+
+    @Transactional
+    @Modifying
+    @Query("update Student s set s.email = :email where s.firstName = :firstName")
+    int updateEmailByName(@Param("email") String email, @Param("firstName") String firstName);
+
+
 }
