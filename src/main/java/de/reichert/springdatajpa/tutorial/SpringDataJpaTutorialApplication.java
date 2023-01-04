@@ -24,16 +24,30 @@ public class SpringDataJpaTutorialApplication {
 					.email("karl@guardi.an")
 					.build();
 
-			Student student = Student.builder()
+			Student student0 = Student.builder()
 					.email("swantje@web.de")
 					.firstName("Swantje")
 					.lastName("Maja")
 					.guardian(guardian)
 					.build();
 
-			studentRepository.save(student);
+			Student student1 = Student.builder()
+					.email("viktor@web.de")
+					.firstName("Viktor")
+					.lastName("Reichert")
+					.guardian(guardian)
+					.build();
+
+			studentRepository.save(student0);
+			studentRepository.save(student1);
 
 			studentRepository.findStudentByFirstNameContaining("tj").forEach(System.out::println);
+
+			studentRepository.findByGuardian_NameLikeIgnoreCase("karl").forEach(System.out::println);
+
+			//System.out.println(studentRepository.findByGuardian_EmailLikeIgnoreCase("karl@guardi.an"));
+
+			System.out.println(studentRepository.getNameById(1L));
 		} );
 	}
 }
