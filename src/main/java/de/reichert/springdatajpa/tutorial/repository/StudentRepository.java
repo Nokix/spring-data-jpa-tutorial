@@ -3,6 +3,7 @@ package de.reichert.springdatajpa.tutorial.repository;
 import de.reichert.springdatajpa.tutorial.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,5 +23,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("select s.firstName from Student s where s.id = ?1")
     Optional<String> getNameById(Long id);
 
-
+    // Native
+    @Query(value = "SELECT * FROM student s WHERE s.first_name = :name", nativeQuery = true)
+    List<Student> getAllByName(@Param("name") String name);
 }

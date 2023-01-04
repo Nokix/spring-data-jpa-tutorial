@@ -48,6 +48,8 @@ public class SpringDataJpaTutorialApplication {
 			//System.out.println(studentRepository.findByGuardian_EmailLikeIgnoreCase("karl@guardi.an"));
 
 			System.out.println(studentRepository.getNameById(1L));
+
+			studentRepository.getAllByName("Viktor").forEach(System.out::println);
 		} );
 	}
 }
