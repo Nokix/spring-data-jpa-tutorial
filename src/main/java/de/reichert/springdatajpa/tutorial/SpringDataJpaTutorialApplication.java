@@ -1,16 +1,16 @@
 package de.reichert.springdatajpa.tutorial;
 
-import de.reichert.springdatajpa.tutorial.entity.Course;
-import de.reichert.springdatajpa.tutorial.entity.CourseMaterial;
-import de.reichert.springdatajpa.tutorial.entity.Guardian;
-import de.reichert.springdatajpa.tutorial.entity.Student;
+import de.reichert.springdatajpa.tutorial.entity.*;
 import de.reichert.springdatajpa.tutorial.repository.CourseMaterialRepository;
 import de.reichert.springdatajpa.tutorial.repository.CourseRepository;
 import de.reichert.springdatajpa.tutorial.repository.StudentRepository;
+import de.reichert.springdatajpa.tutorial.repository.TeacherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.Set;
 
 @SpringBootApplication
 public class SpringDataJpaTutorialApplication {
@@ -22,7 +22,8 @@ public class SpringDataJpaTutorialApplication {
     @Bean
     public CommandLineRunner app(StudentRepository studentRepository,
                                  CourseRepository courseRepository,
-                                 CourseMaterialRepository courseMaterialRepository) {
+                                 CourseMaterialRepository courseMaterialRepository,
+                                 TeacherRepository teacherRepository) {
         return (args -> {
             Guardian guardian = Guardian.builder()
                     .name("Karl")
@@ -60,6 +61,7 @@ public class SpringDataJpaTutorialApplication {
             //System.out.println(studentRepository.updateEmailByName("new@mail.de", "Viktor"));
             //System.out.println(studentRepository.getAllByName("Viktor"));
 
+
             CourseMaterial courseMaterial = CourseMaterial.builder()
                     .url("ana1.de")
                     .build();
@@ -70,9 +72,15 @@ public class SpringDataJpaTutorialApplication {
                     .title("Analysis 1")
                     .build();
 
-            // courseMaterialRepository.save(courseMaterial);
-            courseRepository.save(course);
-            courseMaterialRepository.findAll().forEach(System.out::println);
+            Teacher teacher = Teacher.builder()
+                    .firstName("Oli")
+                    .lastName("Kohl")
+                    .taughtCourses(Set.of(course))
+                    .build();
+
+            teacherRepository.save(teacher);
+//            courseRepository.save(course);
+//            courseMaterialRepository.findAll().forEach(System.out::println);
         });
     }
 }
