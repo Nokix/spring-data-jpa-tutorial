@@ -1,6 +1,7 @@
 package de.reichert.springdatajpa.tutorial;
 
 import de.reichert.springdatajpa.tutorial.entity.*;
+import de.reichert.springdatajpa.tutorial.faker.FakeMachine;
 import de.reichert.springdatajpa.tutorial.repository.CourseMaterialRepository;
 import de.reichert.springdatajpa.tutorial.repository.CourseRepository;
 import de.reichert.springdatajpa.tutorial.repository.StudentRepository;
@@ -23,7 +24,8 @@ public class SpringDataJpaTutorialApplication {
     public CommandLineRunner app(StudentRepository studentRepository,
                                  CourseRepository courseRepository,
                                  CourseMaterialRepository courseMaterialRepository,
-                                 TeacherRepository teacherRepository) {
+                                 TeacherRepository teacherRepository,
+                                 FakeMachine fakeMachine) {
         return (args -> {
             Guardian guardian = Guardian.builder()
                     .name("Karl")
@@ -82,6 +84,8 @@ public class SpringDataJpaTutorialApplication {
 //            teacherRepository.save(teacher);
             courseRepository.save(course);
 //            courseMaterialRepository.findAll().forEach(System.out::println);
+
+            studentRepository.saveAll(fakeMachine.fakeStudents(100));
         });
     }
 }
