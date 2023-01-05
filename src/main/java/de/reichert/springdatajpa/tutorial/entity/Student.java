@@ -1,10 +1,9 @@
 package de.reichert.springdatajpa.tutorial.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 
 @Data
@@ -35,6 +34,10 @@ public class Student {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @ManyToMany(mappedBy = "participants")
+    @ToString.Exclude
+    private List<Course> courses;
 }
 
 

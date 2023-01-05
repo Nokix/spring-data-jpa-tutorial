@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +27,13 @@ public class Course {
     @ToString.Exclude
     private CourseMaterial courseMaterial;
 
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Teacher taughtBy;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "course_participants",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "participants_id"))
+    private Set<Student> participants = new LinkedHashSet<>();
+
 }

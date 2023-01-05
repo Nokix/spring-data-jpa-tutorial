@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -77,16 +78,9 @@ public class SpringDataJpaTutorialApplication {
                     .lastName("Kohl")
                     //.taughtCourses(Set.of(course))
                     .build();
-            Course course = Course.builder()
-                    .courseMaterial(courseMaterial)
-                    .credit(20)
-                    .title("Analysis 1")
-                    .taughtBy(teacher)
-                    .build();
 
 
 //            teacherRepository.save(teacher);
-            courseRepository.save(course);
 //            courseMaterialRepository.findAll().forEach(System.out::println);
 
 
@@ -104,10 +98,23 @@ public class SpringDataJpaTutorialApplication {
             studentRepository.findAll(thirdTen).getContent().forEach(System.out::println);
             System.out.println(studentRepository.findAll(thirdTen).getTotalPages());
 
-            studentRepository.findByFirstNameContainsIgnoreCaseOrderByFirstNameAsc(
-                    "vi",
-                    PageRequest.of(0, 20))
-                    .getContent().forEach(System.out::println);
+            List<Student> vi_students = studentRepository.findByFirstNameContainsIgnoreCaseOrderByFirstNameAsc(
+                            "vi",
+                            PageRequest.of(0, 20))
+                    .getContent();
+
+            Course course = Course.builder()
+                    .courseMaterial(courseMaterial)
+                    .credit(20)
+                    .title("Analysis 1")
+                    .taughtBy(teacher)
+                    .participants(Set.copyOf(vi_students))
+                    .build();
+
+            course = courseRepository.save(course);
+
+//            course.getParticipants().add(student0);
+//            courseRepository.save(course);
 
         });
     }
