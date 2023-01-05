@@ -1,11 +1,9 @@
 package de.reichert.springdatajpa.tutorial.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +19,13 @@ public class Course {
     private String title;
     private Integer credit;
 
-    //@OneToOne(cascade = CascadeType.PERSIST)
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+//    @OneToOne
+//    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+
+    @OneToOne(
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    @ToString.Exclude
     private CourseMaterial courseMaterial;
 }

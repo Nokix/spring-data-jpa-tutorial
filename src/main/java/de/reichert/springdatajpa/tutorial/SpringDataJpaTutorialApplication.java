@@ -11,6 +11,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootApplication
 public class SpringDataJpaTutorialApplication {
@@ -72,6 +75,10 @@ public class SpringDataJpaTutorialApplication {
 
             // courseMaterialRepository.save(courseMaterial);
             courseRepository.save(course);
+
+            List<Course> courses = courseRepository.findAll();
+            System.out.println(courses.get(0).getCourseMaterial());
+            courses.forEach(System.out::println);
         });
     }
 }
