@@ -66,20 +66,21 @@ public class SpringDataJpaTutorialApplication {
                     .url("ana1.de")
                     .build();
 
+            Teacher teacher = Teacher.builder()
+                    .firstName("Oli")
+                    .lastName("Kohl")
+                    //.taughtCourses(Set.of(course))
+                    .build();
             Course course = Course.builder()
                     .courseMaterial(courseMaterial)
                     .credit(20)
                     .title("Analysis 1")
+                    .taughtBy(teacher)
                     .build();
 
-            Teacher teacher = Teacher.builder()
-                    .firstName("Oli")
-                    .lastName("Kohl")
-                    .taughtCourses(Set.of(course))
-                    .build();
 
-            teacherRepository.save(teacher);
-//            courseRepository.save(course);
+//            teacherRepository.save(teacher);
+            courseRepository.save(course);
 //            courseMaterialRepository.findAll().forEach(System.out::println);
         });
     }

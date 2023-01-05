@@ -24,10 +24,6 @@ public class Teacher {
     private String firstName;
     private String lastName;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "taughtBy",
-            referencedColumnName = "id"
-    )
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taughtBy")
     private Set<Course> taughtCourses = new LinkedHashSet<>();
 }

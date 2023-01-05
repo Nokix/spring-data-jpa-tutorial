@@ -23,4 +23,8 @@ public class Course {
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @ToString.Exclude
     private CourseMaterial courseMaterial;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Teacher taughtBy;
 }
