@@ -70,7 +70,7 @@ public class SpringDataJpaTutorialApplication {
                     .title("Analysis 1")
                     .build();
 
-            courseMaterialRepository.save(courseMaterial);
+            // courseMaterialRepository.save(courseMaterial);
             courseRepository.save(course);
         });
     }

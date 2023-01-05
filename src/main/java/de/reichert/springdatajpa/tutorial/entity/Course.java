@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +21,8 @@ public class Course {
     private String title;
     private Integer credit;
 
+    //@OneToOne(cascade = CascadeType.PERSIST)
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private CourseMaterial courseMaterial;
 }
