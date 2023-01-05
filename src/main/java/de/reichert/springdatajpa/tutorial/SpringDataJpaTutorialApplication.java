@@ -10,7 +10,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.Collections;
 import java.util.Set;
 
 @SpringBootApplication
@@ -85,7 +89,26 @@ public class SpringDataJpaTutorialApplication {
             courseRepository.save(course);
 //            courseMaterialRepository.findAll().forEach(System.out::println);
 
-            studentRepository.saveAll(fakeMachine.fakeStudents(100));
+
+            Pageable thirdTen = PageRequest.of(2, 10);
+
+            studentRepository.saveAll(fakeMachine.fakeStudents(10000));
+            Pageable firstTen = PageRequest.of(
+                    0,
+                    10,
+                    Sort.by("firstName").descending()
+                            .and(Sort.by("lastName")));
+            studentRepository.findAll(firstTen).getContent().forEach(System.out::println);
+
+            System.out.println();
+            studentRepository.findAll(thirdTen).getContent().forEach(System.out::println);
+            System.out.println(studentRepository.findAll(thirdTen).getTotalPages());
+
+            studentRepository.findByFirstNameContainsIgnoreCaseOrderByFirstNameAsc(
+                    "vi",
+                    PageRequest.of(0, 20))
+                    .getContent().forEach(System.out::println);
+
         });
     }
 }

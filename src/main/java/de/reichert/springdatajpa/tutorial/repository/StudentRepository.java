@@ -1,6 +1,8 @@
 package de.reichert.springdatajpa.tutorial.repository;
 
 import de.reichert.springdatajpa.tutorial.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,5 +36,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("update Student s set s.email = :email where s.firstName = :firstName")
     int updateEmailByName(@Param("email") String email, @Param("firstName") String firstName);
 
+    Page<Student> findByFirstNameContainsIgnoreCaseOrderByFirstNameAsc(String firstName, Pageable pageable);
 
 }
