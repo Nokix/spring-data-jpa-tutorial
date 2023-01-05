@@ -72,6 +72,7 @@ public class SpringDataJpaTutorialApplication {
 
             // courseMaterialRepository.save(courseMaterial);
             courseRepository.save(course);
+            courseMaterialRepository.findAll().forEach(System.out::println);
         });
     }
 }

@@ -1,10 +1,7 @@
 package de.reichert.springdatajpa.tutorial.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 @Data
@@ -24,5 +21,6 @@ public class Course {
     //@OneToOne(cascade = CascadeType.PERSIST)
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @ToString.Exclude
     private CourseMaterial courseMaterial;
 }
